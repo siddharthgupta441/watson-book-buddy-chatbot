@@ -1,0 +1,6 @@
+flask
+python-dotenv
+ibm-watson
+flask-cors
+requests
+ibm_cloud_sdk_core
