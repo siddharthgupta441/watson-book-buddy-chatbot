@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 const HeroSection = () => {
   const fullText = 'Find your next favorite book with Watson Book Buddy!';
@@ -120,9 +122,13 @@ const HeroSection = () => {
               {chatHistory.map((entry, index) => (
                 <div key={index} className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow">
                   <p className="text-blue-600 dark:text-blue-300 font-semibold">You:</p>
-                  <p className="text-gray-800 dark:text-gray-100 mb-2">{entry.user}</p>
-                  <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
-                  <p className="text-gray-900 dark:text-gray-50 text-end">{entry.bot}</p>
+                  <p className="text-gray-800 dark:text-gray-100 mb-2 text-base">{entry.user}</p>
+                  <div className='w-0.7 text-end'>
+                    <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
+                    <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]} components={{ p: ({node, ...props}) => <p className="my-custom-paragraph" {...props} />, strong: ({node, ...props}) => <strong className="font-bold text-blue-500" {...props} />, }}>
+                        {entry.bot}
+                      </ReactMarkdown></p>
+                  </div>
                 </div>
               ))}
             </div>

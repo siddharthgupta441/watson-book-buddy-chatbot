@@ -1,2 +1,6 @@
 
 @import "tailwindcss";
+strong {
+  color: inherit;
+  font-weight: bold;
+}
