@@ -125,7 +125,7 @@ const HeroSection = () => {
                   <p className="text-gray-800 dark:text-gray-100 mb-2 text-base">{entry.user}</p>
                   <div className='w-0.7 text-end'>
                     <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
-                    <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]} components={{ p: ({node, ...props}) => <p className="my-custom-paragraph" {...props} />, strong: ({node, ...props}) => <strong className="font-bold text-blue-500" {...props} />, }}>
+                    <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]}>
                         {entry.bot}
                       </ReactMarkdown></p>
                   </div>
