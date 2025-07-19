@@ -52,7 +52,7 @@ def chat():
     response = requests.post(url, headers=headers, json=payload)
     res_json = response.json()
     #print("Calling:", url)
-    print("Response JSON:", response.json())
+    #   print("Response JSON:", response.json())
 
     try:
         output_text = res_json['output']['generic'][0]['text']

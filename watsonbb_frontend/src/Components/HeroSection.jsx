@@ -121,13 +121,17 @@ const HeroSection = () => {
             <div className="w-full max-w-2xl space-y-4 text-left">
               {chatHistory.map((entry, index) => (
                 <div key={index} className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow">
-                  <p className="text-blue-600 dark:text-blue-300 font-semibold">You:</p>
-                  <p className="text-gray-800 dark:text-gray-100 mb-2 text-base">{entry.user}</p>
-                  <div className='w-0.7 text-end'>
-                    <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
-                    <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                        {entry.bot}
-                      </ReactMarkdown></p>
+                  <div className='w-[80%] bg-gray-800 p-2 mb-2'>
+                    <p className="text-blue-600 dark:text-blue-300 font-semibold">You:</p>
+                    <p className="text-gray-800 dark:text-gray-100 mb-2 text-base">{entry.user}</p>
+                  </div>
+                  <div className='flex justify-end'>
+                    <div className='w-[80%] bg-gray-800 p-2'>
+                      <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
+                      <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                          {entry.bot}
+                        </ReactMarkdown></p>
+                    </div>
                   </div>
                 </div>
               ))}
