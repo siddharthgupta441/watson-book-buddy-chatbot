@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
+import os
 import requests
 from ibm_watson import AssistantV2
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -9,9 +10,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = "wkSWQC2K7Ztpd0xT_BxoM3BTcmvap2C6mLZajBq2y61R"
-SERVICE_URL ="https://api.au-syd.assistant.watson.cloud.ibm.com"
-ASSISTANT_ID = "02da2dca-9a60-4d79-b542-577a63afc9be"
+API_KEY = os.getenv("API_KEY")
+SERVICE_URL = os.getenv("SERVICE_URL")
+ASSISTANT_ID = os.getenv("ASSISTANT_ID")
 ENV_ID = "draft"
 
 print("API Key loaded:", API_KEY is not None)
