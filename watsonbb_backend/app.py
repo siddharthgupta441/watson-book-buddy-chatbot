@@ -27,7 +27,6 @@ def get_access_token():
     }
 
     response = requests.post(url, headers=headers, data=data)
-    #print(response.json()["access_token"])
     return response.json()["access_token"]
 
 @app.route("/chat", methods=["POST"])
@@ -62,4 +61,4 @@ if __name__ == "__main__":
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({"message": "Backend is running ✅"})
+    return jsonify({API_KEY})
