@@ -1,5 +1,4 @@
 import './App.css'
-// import Navbar from '/src/components/Navbar';
 import  Navbar  from '/src/Components/Navbar.jsx';
 import HeroSection from '/src/Components/HeroSection.jsx';
 import Features from '/src/Components/Features.jsx';

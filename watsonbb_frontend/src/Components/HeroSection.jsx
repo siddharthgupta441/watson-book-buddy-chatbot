@@ -34,7 +34,7 @@ const HeroSection = () => {
     setShowIntro(false);
 
     const user_message = input;
-    // const botResponse = `User Qeury: ${input}`;
+ 
     setChatHistory((prev) => [...prev, { user: user_message, Buddy: "..." }]);
     setInput('');
 
@@ -59,7 +59,6 @@ const HeroSection = () => {
         console.log("Backend response data:", data);
         console.log("Bot reply:", botReply);
 
-        // Update last bot placeholder with actual reply
         setChatHistory((prev) => {
           const updated = [...prev];
           updated[updated.length - 1].bot = botReply;

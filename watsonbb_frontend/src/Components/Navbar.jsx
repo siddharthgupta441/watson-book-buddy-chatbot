@@ -3,16 +3,6 @@ import React, { useState } from "react";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-const handleLoginClick = () => {
-
-  console.log("re directed to new page")
-
-
-  
-
-
-}
-
 
   return (
     <header className="mx-full bg-transparent shadow-lg sticky top-0 z-50">
@@ -41,13 +31,6 @@ const handleLoginClick = () => {
               <option className="text-black">HI</option>
               <option className="text-black">Urdu</option>
             </select>
-
-            {/* Login Button
-            <button
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-1.5 rounded-lg font-semibold shadow-lg hover:from-pink-600 hover:to-purple-700 hover:shadow-pink-500/70 transition-transform duration-300 transform hover:scale-110"
-            >
-              Login
-            </button> */}
           </div>
 
           {/* Hamburger - Mobile */}
@@ -95,12 +78,6 @@ const handleLoginClick = () => {
               <option className="text-black">Urdu</option>
             </select>
 
-            {/* <button onclick={handleLoginClick}
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 rounded-full font-semibold shadow-lg hover:from-pink-600 hover:to-purple-700 hover:shadow-pink-500/70 transition-transform duration-300 transform hover:scale-105 " 
-            
-            >
-              Login
-            </button> */}
           </div>
         )}
       </nav>
