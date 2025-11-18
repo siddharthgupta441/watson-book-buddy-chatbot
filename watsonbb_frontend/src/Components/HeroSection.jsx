@@ -13,60 +13,69 @@ const HeroSection = () => {
   const [latestBotReply, setLatestBotReply] = useState('');
 
   useEffect(() => {
+    const shownBefore = localStorage.getItem("intro_shown");
+    if (shownBefore) {
+      setShowIntro(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!showIntro) return;
+
     let timeout;
-    if (showIntro && index < fullText.length) {
+
+    if (index < fullText.length) {
       timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + fullText.charAt(index));
         setIndex(index + 1);
       }, 50);
-    } else if(showIntro){
+    } else {
+      localStorage.setItem("intro_shown", "true");
+
       timeout = setTimeout(() => {
-        setDisplayedText('');
-        setIndex(0);
-      }, 2500);
+        setShowIntro(false);
+      }, 2000);
     }
+
     return () => clearTimeout(timeout);
   }, [index, showIntro]);
 
   const handleSend = async () => {
-    if(!input.trim()) return;
+    if (!input.trim()) return;
 
     setShowIntro(false);
 
     const user_message = input;
- 
-    setChatHistory((prev) => [...prev, { user: user_message, Buddy: "..." }]);
+
+    setChatHistory((prev) => [...prev, { user: user_message, bot: "Thinking..." }]);
     setInput('');
 
-
     try {
-        const res = await fetch('https://watson-book-buddy-chatbot.onrender.com/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: user_message }),
-        });
+      const res = await fetch('https://watson-book-buddy-chatbot.onrender.com/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: user_message }),
+      });
 
-        if (!res.ok) {
-          console.error('API response not ok', res.status);
-          return;
-        }
-
-        const data = await res.json();
-        const botReply = data.reply;
-        setLatestBotReply(botReply);
-        console.log("Backend response data:", data);
-        console.log("Bot reply:", botReply);
-
-        setChatHistory((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1].bot = botReply;
-          return updated;
-        });
-      } catch (error) {
-        console.error('Error fetching chatbot reply:', error);
+      if (!res.ok) {
+        console.error('API response not ok', res.status);
+        return;
       }
+
+      const data = await res.json();
+      const botReply = data.reply;
+      setLatestBotReply(botReply);
+
+      setChatHistory((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1].bot = botReply;
+        return updated;
+      });
+    } catch (error) {
+      console.error('Error fetching chatbot reply:', error);
+    }
   };
 
   return (
@@ -78,14 +87,12 @@ const HeroSection = () => {
       viewport={{ once: true }}
       className="relative text-center py-24 px-6 bg-gray-700 dark:from-gray-900 dark:to-black transition-all duration-300"
     >
-      {/* Background Gradient Light */}
       <div className="absolute inset-0 -z-10 blur-3xl opacity-30 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600"></div>
 
       <div className="max-w-4xl mx-auto flex flex-col items-center space-y-6">
-        {/* 🔠 Animated Heading */}
+
         {showIntro ? (
           <>
-            {/* 🔠 Animated Heading */}
             <motion.h1
               className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-gray-900 dark:text-white min-h-[100px]"
               initial={{ opacity: 0 }}
@@ -98,7 +105,6 @@ const HeroSection = () => {
               <span className="animate-pulse text-blue-600 dark:text-blue-400">|</span>
             </motion.h1>
 
-            {/* 💬 Subheading */}
             <motion.p
               className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl"
               initial={{ opacity: 0 }}
@@ -106,11 +112,13 @@ const HeroSection = () => {
               transition={{ delay: 0.8 }}
             >
               <span className="font-bold text-gray-300 dark:text-gray-300">
-                Get you favorite book recommendations instantly! Just ask away.
+                Get your favorite book recommendations instantly! Just ask away.
               </span>
             </motion.p>
           </>
         ) : (
+
+          // chatbox
           <motion.div
             className="text-xl text-gray-800 dark:text-gray-900 min-h-[100px] max-w-2xl w-full"
             initial={{ opacity: 0 }}
@@ -127,18 +135,20 @@ const HeroSection = () => {
                   <div className='flex justify-end'>
                     <div className='w-[80%] bg-gray-800 p-2'>
                       <p className="text-green-600 dark:text-green-300 font-semibold text-end">Buddy:</p>
-                      <p className="text-gray-900 dark:text-gray-50 text-start text-base"><ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                      <p className="text-gray-900 dark:text-gray-50 text-start text-base">
+                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
                           {entry.bot}
-                        </ReactMarkdown></p>
+                        </ReactMarkdown>
+                      </p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </motion.div>
-        )}      
+        )}
 
-        {/* chatbox */}
+        {/* input box */}
         <div className="flex items-center gap-3 mt-4 w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-md px-4 py-2">
           <textarea
             value={input}
