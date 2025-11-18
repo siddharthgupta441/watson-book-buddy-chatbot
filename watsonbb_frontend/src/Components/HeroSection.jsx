@@ -47,7 +47,7 @@ const HeroSection = () => {
 
     const user_message = input;
 
-    setChatHistory((prev) => [...prev, { user: user_message, bot: "Thinking..." }]);
+    setChatHistory((prev) => [...prev, { user: user_message, bot: "Thinking/Connecting to the server..." }]);
     setInput('');
 
     try {
